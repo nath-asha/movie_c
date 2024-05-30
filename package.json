@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/nath-asha/movie_c#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0"
   }
 }
