@@ -10,10 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/nath-asha/movie_c.git"
   },
-  "author": "",
+  "author": "nath-asha",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/nath-asha/movie_c/issues"
   },
-  "homepage": "https://github.com/nath-asha/movie_c#readme"
+  "homepage": "https://github.com/nath-asha/movie_c#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
