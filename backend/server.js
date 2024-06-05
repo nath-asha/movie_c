@@ -1,15 +1,15 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
-const movieRoutes = require('./routes/movieRoutes');
-const { connectDB } = require('./config/db');
+import express, { json } from 'express';
+import mongoose from 'mongoose';
+import { config } from 'dotenv';
+import cors from 'cors';
+import movieRoutes from './routes/movieRoutes';
+import { connectDB } from './config/db';
 
-dotenv.config();
+config();
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(json());
 
 connectDB();
 
