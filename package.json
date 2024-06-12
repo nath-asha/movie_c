@@ -1,0 +1,28 @@
+{
+  "name": "movie",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000m\u0000o\u0000v\u0000i\u0000e\u0000_\u0000c\u0000\r\u0000 \u0000C\u0000a\u0000t\u0000a\u0000l\u0000o\u0000g\u0000u\u0000e\u0000 \u0000o\u0000f\u0000 \u0000m\u0000o\u0000v\u0000i\u0000e\u0000s\u0000 \u0000w\u0000i\u0000t\u0000h\u0000 \u0000C\u0000R\u0000U\u0000D\u0000 \u0000f\u0000u\u0000n\u0000c\u0000t\u0000i\u0000o\u0000n\u0000s\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nath-asha/movie_c.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nath-asha/movie_c/issues"
+  },
+  "homepage": "https://github.com/nath-asha/movie_c#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.1"
+  }
+}
