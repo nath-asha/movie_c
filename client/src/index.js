@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css'; // You can create this file for custom styles
+import ReactDOM from 'react-dom/client';
+import './index.css';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
-
-ReactDOM.render(
+import ErrorBoundary from './components/ErrorBoundary';
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <App />
+  <AuthProvider>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </AuthProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
