@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Define Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/movies', require('./routes/movies'));
+app.use('/auth', require('./routes/auth'));
+app.use('/movies', require('./routes/movies'));
 
 const PORT = process.env.PORT || 5000;
 

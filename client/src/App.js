@@ -5,28 +5,26 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Movies from './pages/Movies';
-import { AuthProvider, AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/AuthContext';
 
 const App = () => {
-    const { loadUser } = useContext(AuthContext);
+  const { loadUser } = useContext(AuthContext);
 
-    useEffect(() => {
-        loadUser();
-    }, [loadUser]);
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
 
-    return (
-        <AuthProvider>
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route exact path="/" element={Home} />
-                    <Route path="/register" element={Register} />
-                    <Route path="/login" element={Login} />
-                    <Route path="/movies" element={Movies} />
-                </Routes>
-            </Router>
-        </AuthProvider>
-    );
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={Home} />
+        <Route path="/register" element={Register} />
+        <Route path="/login" element={Login} />
+        <Route path="/movies" element={Movies} />
+      </Routes>
+    </Router>
+  );
 };
 
 export default App;
