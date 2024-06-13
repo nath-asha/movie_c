@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Movies from './pages/Movies';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext,AuthProvider } from './context/AuthContext';
 
 const App = () => {
   const { loadUser } = useContext(AuthContext);
@@ -15,6 +15,7 @@ const App = () => {
   }, [loadUser]);
 
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/movies" element={Movies} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

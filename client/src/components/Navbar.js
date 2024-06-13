@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
-    const { isAuthenticated, logout, user } = useContext(AuthContext);
+    const { isAuthenticated, logout } = useContext(AuthContext);
 
     const onLogout = () => {
         logout();
@@ -35,7 +35,7 @@ const Navbar = () => {
     );
 
     return (
-        <nav>
+        <nav className="navbar">
             <h1>
                 <Link to="/">Movie Catalogue</Link>
             </h1>
