@@ -1,124 +1,56 @@
-import { createContext, useReducer } from 'react';
+// AuthContext.js
+import React, { createContext, useState } from 'react';
 import axios from 'axios';
-import setAuthToken from '../utils/setAuthToken';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-const initialState = {
-    token: localStorage.getItem('token'),
-    isAuthenticated: null,
-    user: null,
-    loading: true,
-    error: null
-};
+export const AuthProvider = ({ children }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
 
-const authReducer = (state, action) => {
-    switch (action.type) {
-        case 'USER_LOADED':
-            return {
-                ...state,
-                isAuthenticated: true,
-                loading: false,
-                user: action.payload
-            };
-        case 'REGISTER_SUCCESS':
-        case 'LOGIN_SUCCESS':
-            setAuthToken(action.payload.token);
-            return {
-                ...state,
-                ...action.payload,
-                isAuthenticated: true,
-                loading: false
-            };
-        case 'REGISTER_FAIL':
-        case 'AUTH_ERROR':
-        case 'LOGIN_FAIL':
-        case 'LOGOUT':
-            setAuthToken();
-            return {
-                ...state,
-                token: null,
-                isAuthenticated: false,
-                loading: false,
-                user: null,
-                error: action.payload
-            };
-        default:
-            return state;
-    }
-};
-
-const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, initialState);
-
-    // Load User
     const loadUser = async () => {
-        if (localStorage.token) {
-            setAuthToken(localStorage.token);
-        }
         try {
-            const res = await axios.get('/api/auth');
-            dispatch({
-                type: 'USER_LOADED',
-                payload: res.data
-            });
+            const res = await axios.get('http://localhost:5000/auth'); // Adjust this endpoint if needed
+            setIsAuthenticated(true);
+            setUser(res.data);
         } catch (err) {
-            dispatch({
-                type: 'AUTH_ERROR'
-            });
+            setIsAuthenticated(false);
+            setUser(null);
         }
     };
 
-    // Register User
-    const register = async formData => {
+    const login = async (formData) => {
         try {
-            const res = await axios.post('/api/auth/register', formData);
-            dispatch({
-                type: 'REGISTER_SUCCESS',
-                payload: res.data
-            });
-            loadUser();
+            const res = await axios.post('http://localhost:5000/auth/login', formData);
+            setIsAuthenticated(true);
+            setUser(res.data);
         } catch (err) {
-            dispatch({
-                type: 'REGISTER_FAIL',
-                payload: err.response.data.msg
-            });
+            setIsAuthenticated(false);
+            setUser(null);
         }
     };
 
-    // Login User
-    const login = async formData => {
+    const register = async (formData) => {
         try {
-            const res = await axios.post('/api/auth/login', formData);
-            dispatch({
-                type: 'LOGIN_SUCCESS',
-                payload: res.data
-            });
-            loadUser();
+            const res = await axios.post('http://localhost:5000/api/auth/register', formData);
+            setIsAuthenticated(true);
+            setUser(res.data);
         } catch (err) {
-            dispatch({
-                type: 'LOGIN_FAIL',
-                payload: err.response.data.msg
-            });
+            console.error(err); // Log the error for debugging
+            setIsAuthenticated(false);
+            setUser(null);
+            throw err; // Optionally rethrow the error for handling in components
         }
     };
 
-    // Logout
-    const logout = () => dispatch({ type: 'LOGOUT' });
+    const logout = () => {
+        setIsAuthenticated(false);
+        setUser(null);
+    };
 
     return (
-        <AuthContext.Provider
-            value={{
-                ...state,
-                loadUser,
-                register,
-                login,
-                logout
-            }}
-        >
+        <AuthContext.Provider value={{ isAuthenticated, user, loadUser, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-export { AuthProvider, AuthContext };

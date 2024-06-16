@@ -1,3 +1,4 @@
+// Register.js
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
@@ -12,9 +13,15 @@ const Register = () => {
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
-        register({ username, password });
+        try {
+            await register(formData);
+            // Optionally, handle success behavior (redirect, show message, etc.)
+        } catch (err) {
+            // Handle error (show error message, etc.)
+            console.error(err); // Log the error for debugging
+        }
     };
 
     return (

@@ -1,20 +1,22 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
+const Auth = require('./routes/auth');
 const cors = require('cors');
+
 
 const app = express();
 
-// Connect Database
+// Connect to MongoDB
 connectDB();
 
-// Init Middleware
-app.use(bodyParser.json());
-app.use(cors());
+// Middleware
+app.use(bodyParser.json()); // Parse incoming JSON requests
+app.use(cors()); // Enable Cross-Origin Resource Sharing
 
-// Define Routes
-app.use('/auth', require('./routes/auth'));
-app.use('/movies', require('./routes/movies'));
+// Routes
+app.use('/api/auth', Auth); // Authentication routes
+app.use('/api/movies', require('./routes/movies')); // Example route for movies
 
 const PORT = process.env.PORT || 5000;
 
